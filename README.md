@@ -10,7 +10,15 @@ A volume is needed for a PostgreSQL container to persist data, so that the datab
 
 #### Database documentation
 
-Essential commands: ```docker run --name my-db-container --network app-network -v /postgresql/data:/var/lib/postgresql/data -d azekyo/mysecondapp```
+Essential commands: 
+
+```docker build -t <YOUR_USERNAME>/database```
+
+```docker network create app-network```
+
+```docker run --name my-db-container --network app-network -v ${PWD}/postgresql/data:/var/lib/postgresql/data -d <YOUR_USERNAME>/database```
+
+```docker run -p "8090:8080" --net=app-network --name=adminer -d adminer```
 
 Dockerfile:
 ```

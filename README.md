@@ -162,4 +162,43 @@ The HTTPD service serves the frontend of the application.
 
 This network allows the services to communicate with each other.
 
+## Publishing Docker Images
 
+```bash
+docker build -t <username>/<repository-name>:<tag> .
+```
+
+- `<username>`: Your DockerHub username.
+- `<repository-name>`: The name of the repository you wish to push the image to.
+- `<tag>`: A version tag, e.g., \`latest\`, \`v1.0\`, etc.
+
+
+
+### Tag the Image (Optional)
+
+If you did not tag the image during the build process, or if you want to tag it with an additional tag, use the \`docker tag\` command:
+
+```bash
+docker tag <local-image-id> <username>/<repository-name>:<tag>
+```
+
+
+### Push the Image to DockerHub
+
+Once the image is built and tagged, you can push it to DockerHub:
+
+```bash
+docker push <username>/<repository-name>:<tag>
+```
+
+## Images for this project
+
+[Backend](https://hub.docker.com/layers/azekyo/tp1-backend/1.0/images/sha256:1787f5cc8e32be40366c2930b2edfbc6fbed910744b0bfcc39ed4cf0eeac27b0?uuid=56B5C29D-A8C5-49CB-9ADE-ACDD452A5D13)
+
+[Database](https://hub.docker.com/layers/azekyo/tp1-database/1.0/images/sha256:fa164b6e243cb59c80568e0b52888b6712b26d2e843fa3abac21881749debab4?uuid=56B5C29D-A8C5-49CB-9ADE-ACDD452A5D13)
+
+[Frontend](https://hub.docker.com/layers/azekyo/tp1-httpd/1.0/images/sha256:cccaae070214c546df6bef0148a1315dfcaeb5c2a19ef3d5273ccaf0cec4a035?uuid=56B5C29D-A8C5-49CB-9ADE-ACDD452A5D13)
+
+#### Why do we put our images into an online repo?
+
+We put images into an online repo to ensure easy access, sharing, and version control across different environments, enabling consistent deployment and collaboration. It also allows for centralized management of updates and dependencies.

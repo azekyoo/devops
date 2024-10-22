@@ -14,12 +14,16 @@ services:
     build: ./Database
     ports:
       - "5432:5432"
+    env_file:
+      - .env
     environment:
-        POSTGRES_USER: usr
-        POSTGRES_PASSWORD: pwd
-        POSTGRES_DB: db
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     networks:
       - app-network
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data
 
   httpd:
     build: ./Frontend

@@ -12,13 +12,21 @@ A volume is needed for a PostgreSQL container to persist data, so that the datab
 
 Essential commands: 
 
-```docker build -t <YOUR_USERNAME>/database```
+```bash
+docker build -t <YOUR_USERNAME>/database
+```
 
-```docker network create app-network```
+```bash
+docker network create app-network
+```
 
-```docker run --name my-db-container --network app-network -v ${PWD}/postgresql/data:/var/lib/postgresql/data -d <YOUR_USERNAME>/database```
+```bash
+docker run --name my-db-container --network app-network -v ${PWD}/postgresql/data:/var/lib/postgresql/data -d <YOUR_USERNAME>/database
+```
 
-```docker run -p "8090:8080" --net=app-network --name=adminer -d adminer```
+```bash
+docker run -p "8090:8080" --net=app-network --name=adminer -d adminer
+```
 
 Dockerfile:
 ```
@@ -76,4 +84,82 @@ A reverse proxy improves security, performance, and scalability by routing clien
 #### Why is docker-compose so important?
 
 Docker Compose is important because it simplifies managing multi-container Docker applications by allowing you to define, configure, and run them together in a single YAML file, automating networking, dependencies, and scaling. This makes development, testing, and deployment more efficient.
+
+## Docker-compose documentation
+
+### Essentials commands:
+
+```bash
+docker-compose up
+```
+- **Description**: Starts the services defined in the `docker-compose.yml` file.
+
+
+```bash
+docker-compose down
+```
+- **Description**: Stops and removes the containers defined in the `docker-compose.yml` file.
+
+
+```bash
+docker-compose build
+```
+- **Description**: Builds or rebuilds services defined in the `docker-compose.yml` file.
+
+
+### File:
+
+The configuration uses Docker Compose version `3.7`.
+
+
+
+### 1. Backend
+
+- **Build Context**: `./Backend/simpleapi`
+- **Ports**:
+    - Host: `8080`
+    - Container: `8080`
+- **Networks**:
+    - `app-network`
+- **Depends On**:
+    - `database`
+
+The backend service is responsible for handling business logic and API requests.
+
+### 2. Database
+
+- **Build Context**: `./Database`
+- **Ports**:
+    - Host: `5432`
+    - Container: `5432`
+- **Environment Variables**:
+    - `POSTGRES_USER`: `usr`
+    - `POSTGRES_PASSWORD`: `pwd`
+    - `POSTGRES_DB`: `db`
+- **Networks**:
+    - `app-network`
+
+The database service uses PostgreSQL to store and manage application data.
+
+### 3. HTTPD (Frontend)
+
+- **Build Context**: `./Frontend`
+- **Ports**:
+    - Host: `80`
+    - Container: `80`
+- **Networks**:
+    - `app-network`
+- **Depends On**:
+    - `backend`
+
+The HTTPD service serves the frontend of the application.
+
+### 4. Networks
+
+### app-network
+
+- **Driver**: `bridge`
+
+This network allows the services to communicate with each other.
+
 

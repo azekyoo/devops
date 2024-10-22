@@ -1,6 +1,13 @@
 version: '3.7'
 
 services:
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
+    networks:
+      - app-network
+
   backend:
     build: ./Backend/simpleapi
     ports:
@@ -12,10 +19,9 @@ services:
 
   database:
     build: ./Database
+
     ports:
       - "5432:5432"
-    env_file:
-      - .env
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -23,7 +29,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./volumes/db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
 
   httpd:
     build: ./Frontend
@@ -37,3 +43,8 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+    db:
+
+

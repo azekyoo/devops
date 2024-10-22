@@ -1,13 +1,13 @@
-package simpleapi.src.main.java.fr.takima.training.simpleapi;
+package fr.takima.training.simpleapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SimpleapiApplication {
+public class SimpleApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SimpleapiApplication.class, args);
+		SpringApplication.run(SimpleApiApplication.class, args);
 	}
 
 }

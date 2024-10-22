@@ -68,3 +68,12 @@ A multistage build is used in Docker to reduce the size of the final image and t
 
 ### 11. `ENTRYPOINT java -jar myapp.jar`
 - **Purpose**: Sets the command to run when the container starts. It uses the `java -jar` command to run the Spring Boot application from the `myapp.jar` file.
+
+#### Why do we need a reverse proxy?
+
+A reverse proxy improves security, performance, and scalability by routing client requests to backend servers, handling tasks like load balancing, SSL termination, and caching. It also hides backend infrastructure details, simplifying the overall architecture.
+
+#### Why is docker-compose so important?
+
+Docker Compose is important because it simplifies managing multi-container Docker applications by allowing you to define, configure, and run them together in a single YAML file, automating networking, dependencies, and scaling. This makes development, testing, and deployment more efficient.
+

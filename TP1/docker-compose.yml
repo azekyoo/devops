@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  backend:
+    build: ./Backend/simpleapi
+    networks:
+      - app-network
+    depends_on:
+      - database
+
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: usr
+      POSTGRES_PASSWORD: pwd
+    networks:
+      - app-network
+
+  httpd:
+    build: ./Frontend
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+networks:
+  app-network:
+    driver: bridge
